@@ -1,1 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyu Gateway | Transient House & Hostel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-navy: #0A192F;
+            --accent-amber: #D97706;
+            --accent-amber-hover: #B45309;
+            --accent-light-amber: #FEF3E2;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+            --bg-light: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Header --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .brand-font {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-amber), #B45309);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition);
+            cursor: pointer;
+            padding: 0.4rem 0.2rem;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--accent-amber); }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-amber);
+            border-radius: 2px;
+        }
+
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+        .btn-book {
+            background-color: var(--accent-amber);
+            color: white;
+            padding: 0.55rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+        }
+
+        .btn-book:hover { background-color: var(--accent-amber-hover); transform: translateY(-1px); }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.3rem;
+            background: none;
+            border: none;
+            color: var(--primary-navy);
+            cursor: pointer;
+        }
+
+        main { flex: 1; }
+
+        .page-view { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title { font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); }
+        .section-subtitle { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .filter-bar {
+            display: flex;
+            gap: 0.6rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            scrollbar-width: thin;
+        }
+
+        .filter-pill {
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+            background-color: white;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .filter-pill:hover, .filter-pill.active {
+            background-color: var(--accent-amber);
+            color: white;
+            border-color: var(--accent-amber);
+            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+        .card-img-container {
+            position: relative;
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            background-color: #E2E8F0;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-img { transform: scale(1.05); }
+
+        .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+        .card-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 0.2rem; }
+        .card-location { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; margin-bottom: 0.6rem; }
+        .card-desc {
+            font-size: 0.825rem;
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-badge {
+            align-self: flex-start;
+            background-color: var(--accent-light-amber);
+            color: #92400E;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.8rem;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .card-price { font-size: 0.95rem; font-weight: 800; color: var(--primary-navy); }
+        .card-price span { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+        .card-link { font-size: 0.8rem; font-weight: 700; color: var(--accent-amber); display: flex; align-items: center; gap: 3px; cursor: pointer; }
+
+        /* --- Hero Slideshow --- */
+        .hero {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            height: 480px;
+            display: flex;
+            align-items: center;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-slideshow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+        .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+
+        .hero-slide { opacity: 0; transition: opacity 1.2s ease-in-out; }
+        .hero-slide.active { opacity: 1; }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hero-dot:hover { background: rgba(255, 255, 255, 0.8); }
+        .hero-dot.active { background: var(--accent-amber); width: 26px; border-radius: 5px; }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(10, 25, 47, 0.85) 0%, rgba(10, 25, 47, 0.3) 70%, rgba(10, 25, 47, 0) 100%);
+            z-index: 2;
+        }
+
+        .hero-content { position: relative; z-index: 3; max-width: 550px; padding: 3rem; }
+        .hero-subtitle { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 700; color: var(--accent-amber); margin-bottom: 0.5rem; }
+        .hero-title { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+        .hero-text { font-size: 0.95rem; color: #CBD5E1; margin-bottom: 1.8rem; }
+
+        .btn-primary {
+            background-color: var(--accent-amber);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover { background-color: var(--accent-amber-hover); transform: translateY(-2px); }
+
+        /* Amenities Bar */
+        .amenity-bar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .amenity-item {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.25rem 0.8rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .amenity-item:hover { transform: translateY(-3px); border-color: var(--accent-amber); box-shadow: var(--shadow-md); }
+
+        .amenity-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent-light-amber);
+            color: var(--accent-amber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .amenity-name { font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); }
+
+        /* --- Rooms Detail --- */
+        .detail-header-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .back-btn { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .back-btn:hover { color: var(--accent-amber); }
+
+        .detail-banner { position: relative; height: 380px; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 2rem; }
+        .detail-banner-img { width: 100%; height: 100%; object-fit: cover; }
+        .detail-banner-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2rem;
+            background: linear-gradient(0deg, rgba(10,25,47,0.9) 0%, rgba(10,25,47,0) 100%);
+            color: white;
+        }
+        .detail-banner-title { font-size: 2.2rem; font-weight: 800; }
+        .detail-banner-meta { display: flex; align-items: center; gap: 15px; margin-top: 0.4rem; font-size: 0.9rem; }
+
+        .detail-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+        .detail-box { background: white; border-radius: var(--radius-md); padding: 1.8rem; border: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+        .detail-box h3 { font-size: 1.2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 0.8rem; }
+        .detail-box p { color: #475569; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.4rem; }
+
+        .quick-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .fact-card { background: white; padding: 1rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-color); }
+        .fact-card i { color: var(--accent-amber); font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .fact-card h4 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+        .fact-card p { font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); }
+
+        /* --- Contact Page --- */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--primary-navy), #1E293B);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+        .contact-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-light-amber);
+            color: var(--accent-amber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 0.2rem; }
+        .contact-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 0.4rem; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-amber); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-navy); color: #94A3B8; padding: 3.5rem 1.5rem 1.5rem 1.5rem; margin-top: auto; }
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #1E293B;
+        }
+        .footer-brand { color: white; font-size: 1.3rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px; }
+        .footer-desc { font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.2rem; max-width: 320px; }
+        .footer-socials { display: flex; gap: 0.8rem; }
+        .social-btn {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: #1E293B; color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; transition: var(--transition);
+        }
+        .social-btn:hover { background: var(--accent-amber); }
+        .footer-column h4 { color: white; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-links a { font-size: 0.85rem; transition: var(--transition); cursor: pointer; }
+        .footer-links a:hover { color: var(--accent-amber); }
+        .footer-bottom {
+            max-width: 1280px; margin: 0 auto; padding-top: 1.5rem;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .amenity-bar { grid-template-columns: repeat(3, 1fr); }
+            .detail-layout { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+            .logo { font-size: 1.1rem; }
+            .logo-icon { width: 34px; height: 34px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: var(--shadow-md);
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav-links.show { display: flex; }
+            .mobile-toggle { display: block; }
+            .logo { font-size: 1rem; gap: 8px; }
+            .logo-icon { width: 30px; height: 30px; }
+            .nav-actions { gap: 0.5rem; }
+            .btn-book { padding: 0.5rem 0.9rem; }
+            .hero { height: auto; min-height: 400px; }
+            .hero-title { font-size: 2rem; }
+            .hero-content { padding: 2rem 1.5rem; }
+            .amenity-bar { grid-template-columns: repeat(3, 1fr); }
+            .quick-facts { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .amenity-bar { grid-template-columns: repeat(2, 1fr); }
+            .card-grid { grid-template-columns: 1fr; }
+            .nav-container { padding: 0.7rem 1rem; }
+            .logo { font-size: 0.9rem; gap: 6px; }
+            .logo-icon { width: 28px; height: 28px; }
+            .btn-book .btn-text { display: none; }
+            .btn-book { padding: 0.55rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="switchPage('home-page')">
+                <div class="logo-icon"><i class="fa-solid fa-bed"></i></div>
+                <span class="brand-font">Elyu Gateway</span>
+            </div>
+
+            <button class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a class="nav-link active" onclick="switchPage('home-page')">Home</a></li>
+                <li><a class="nav-link" onclick="switchPage('rooms-page')">Directory</a></li>
+                <li><a class="nav-link" onclick="switchPage('gallery-page')">Gallery</a></li>
+                <li><a class="nav-link" onclick="switchPage('about-page')">About</a></li>
+                <li><a class="nav-link" onclick="switchPage('contact-page')">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="btn-book" onclick="switchPage('contact-page')"><span class="btn-text">Book Now</span> <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- PAGE 1: HOME -->
+        <section id="home-page" class="page-view active">
+            <div class="container">
+                <div class="hero">
+                    <div class="hero-slideshow">
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1600&q=80" alt="Hostel common area" class="hero-bg hero-slide active" id="hero-img-1">
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e460a5d3?auto=format&fit=crop&w=1600&q=80" alt="Hostel dorm room" class="hero-bg hero-slide" id="hero-img-2">
+                    </div>
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <div class="hero-subtitle">Where to Stay in La Union</div>
+                        <h1 class="hero-title">Elyu Gateway</h1>
+                        <p class="hero-text">Stay. Explore. Discover La Union.</p>
+                        <button class="btn-primary" onclick="switchPage('rooms-page')">View Directory <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-dots">
+                        <span class="hero-dot active" onclick="goToHeroSlide(0)"></span>
+                        <span class="hero-dot" onclick="goToHeroSlide(1)"></span>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Our Rooms</h2>
+                        <div class="section-subtitle">Comfortable stays for every kind of traveler</div>
+                    </div>
+                    <a class="view-all-link" style="color: var(--accent-amber); font-weight: 700; font-size: 0.9rem; display:flex; align-items:center; gap:5px; cursor:pointer;" onclick="switchPage('rooms-page')">View All <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Dorm Bed">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Shared</span>
+                            <div class="card-title">Mixed Dorm Bed</div>
+                            <div class="card-location"><i class="fa-solid fa-bed"></i> Sleeps 1 &middot; Shared bathroom</div>
+                            <p class="card-desc">Budget-friendly bunk bed in a shared dorm room, great for solo backpackers.</p>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;450 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Private Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Private</span>
+                            <div class="card-title">Standard Private Room</div>
+                            <div class="card-location"><i class="fa-solid fa-user"></i> Sleeps 2 &middot; Private bathroom</div>
+                            <p class="card-desc">A cozy private room with a queen bed, perfect for couples or solo travelers.</p>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;1,200 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Family Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Family</span>
+                            <div class="card-title">Family Room</div>
+                            <div class="card-location"><i class="fa-solid fa-people-roof"></i> Sleeps 4 &middot; Private bathroom</div>
+                            <p class="card-desc">Spacious room with two double beds, ideal for families or small groups.</p>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;2,000 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-top: 3.5rem;">
+                    <div>
+                        <h2 class="section-title">Amenities</h2>
+                        <div class="section-subtitle">Everything you need for a comfortable stay</div>
+                    </div>
+                </div>
+
+                <div class="amenity-bar">
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-wifi"></i></div><div class="amenity-name">Free Wi-Fi</div></div>
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-snowflake"></i></div><div class="amenity-name">Air-Conditioned</div></div>
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-shower"></i></div><div class="amenity-name">Hot & Cold Shower</div></div>
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-square-parking"></i></div><div class="amenity-name">Free Parking</div></div>
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-mug-hot"></i></div><div class="amenity-name">Common Kitchen</div></div>
+                    <div class="amenity-item"><div class="amenity-icon"><i class="fa-solid fa-clock"></i></div><div class="amenity-name">24/7 Front Desk</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: ROOMS -->
+        <section id="rooms-page" class="page-view">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Rooms & Rates</h2>
+                        <div class="section-subtitle">Find the room that fits your stay and budget.</div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-pill active" onclick="filterRooms('all', this)">All</button>
+                    <button class="filter-pill" onclick="filterRooms('dorm', this)">Dorm Beds</button>
+                    <button class="filter-pill" onclick="filterRooms('private', this)">Private Rooms</button>
+                    <button class="filter-pill" onclick="filterRooms('family', this)">Family Rooms</button>
+                </div>
+
+                <div class="card-grid" id="rooms-grid">
+                    <div class="card room-card" data-type="dorm">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Mixed Dorm Bed">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Shared</span>
+                            <div class="card-title">Mixed Dorm Bed</div>
+                            <div class="card-location"><i class="fa-solid fa-bed"></i> Sleeps 1 &middot; Shared bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;450 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card room-card" data-type="dorm">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1555854877-bab0e460a5d3?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Female Dorm Bed">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Shared</span>
+                            <div class="card-title">Female-Only Dorm Bed</div>
+                            <div class="card-location"><i class="fa-solid fa-bed"></i> Sleeps 1 &middot; Shared bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;500 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card room-card" data-type="private">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Standard Private Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Private</span>
+                            <div class="card-title">Standard Private Room</div>
+                            <div class="card-location"><i class="fa-solid fa-user"></i> Sleeps 2 &middot; Private bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;1,200 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card room-card" data-type="private">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Deluxe Private Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Private</span>
+                            <div class="card-title">Deluxe Private Room</div>
+                            <div class="card-location"><i class="fa-solid fa-user"></i> Sleeps 2 &middot; Private bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;1,600 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card room-card" data-type="family">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Family Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Family</span>
+                            <div class="card-title">Family Room</div>
+                            <div class="card-location"><i class="fa-solid fa-people-roof"></i> Sleeps 4 &middot; Private bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;2,000 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card room-card" data-type="family">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Group Room">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-badge">Family</span>
+                            <div class="card-title">Group Room (6 pax)</div>
+                            <div class="card-location"><i class="fa-solid fa-people-group"></i> Sleeps 6 &middot; Private bathroom</div>
+                            <div class="card-footer">
+                                <span class="card-price">&#8369;3,000 <span>/ night</span></span>
+                                <span class="card-link" onclick="switchPage('room-detail-page')">View Details <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: ROOM DETAIL -->
+        <section id="room-detail-page" class="page-view">
+            <div class="container">
+                <div class="detail-header-bar">
+                    <div class="back-btn" onclick="switchPage('rooms-page')"><i class="fa-solid fa-arrow-left"></i> Back to Rooms</div>
+                </div>
+
+                <div class="detail-banner">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80" class="detail-banner-img" alt="Standard Private Room">
+                    <div class="detail-banner-overlay">
+                        <h1 class="detail-banner-title">Standard Private Room</h1>
+                        <div class="detail-banner-meta">
+                            <span><i class="fa-solid fa-user"></i> Sleeps 2</span>
+                            <span><i class="fa-solid fa-peso-sign"></i> &#8369;1,200 / night</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-facts">
+                    <div class="fact-card"><i class="fa-solid fa-bed"></i><h4>Bed Type</h4><p>Queen Bed</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-bath"></i><h4>Bathroom</h4><p>Private</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-wifi"></i><h4>Wi-Fi</h4><p>Free</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-snowflake"></i><h4>Cooling</h4><p>Air-Conditioned</p></div>
+                </div>
+
+                <div class="detail-layout">
+                    <div>
+                        <div class="detail-box">
+                            <h3>About This Room</h3>
+                            <p>Our Standard Private Room offers a comfortable, quiet retreat with a queen-sized bed, private bathroom, and air conditioning &mdash; perfect for couples or solo travelers who want privacy without the resort price tag.</p>
+                        </div>
+                        <div class="detail-box">
+                            <h3>Room Includes</h3>
+                            <p><i class="fa-solid fa-check" style="color:var(--accent-amber)"></i> Free Wi-Fi</p>
+                            <p><i class="fa-solid fa-check" style="color:var(--accent-amber)"></i> Air conditioning</p>
+                            <p><i class="fa-solid fa-check" style="color:var(--accent-amber)"></i> Private hot & cold shower</p>
+                            <p><i class="fa-solid fa-check" style="color:var(--accent-amber)"></i> Daily housekeeping</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="detail-box" style="text-align: center;">
+                            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="switchPage('contact-page')"><i class="fa-solid fa-calendar-check"></i> Book This Room</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: GALLERY -->
+        <section id="gallery-page" class="page-view">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Photo Gallery</h2>
+                        <div class="section-subtitle">A look inside Elyu Gateway</div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Common Area"></div>
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Dorm Room"></div>
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Private Room"></div>
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Family Room"></div>
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Common Kitchen"></div>
+                    <div class="card-img-container" style="height: 220px; border-radius: var(--radius-md);"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Reception Area"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: ABOUT -->
+        <section id="about-page" class="page-view">
+            <div class="container">
+                <div class="contact-hero" style="text-align:left; padding: 3rem;">
+                    <h1 style="font-size: 2.2rem; font-weight: 800;">About Elyu Gateway</h1>
+                    <p style="max-width: 600px; color: #CBD5E1; margin-top: 0.5rem;">Your home away from home &mdash; comfortable, affordable, and centrally located.</p>
+                </div>
+
+                <div class="detail-box">
+                    <h3>Our Story</h3>
+                    <p>Elyu Gateway offers clean, comfortable transient rooms and hostel-style beds for travelers, backpackers, and anyone looking for an affordable place to stay. We're conveniently located near [nearby landmark], making it easy to explore the area while relaxing in a welcoming, home-like space.</p>
+                </div>
+
+                <div class="quick-facts" style="grid-template-columns: repeat(4, 1fr); margin-top: 1.5rem;">
+                    <div class="fact-card"><i class="fa-solid fa-bed"></i><h4>Rooms</h4><p>Dorm & Private</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-clock"></i><h4>Check-in</h4><p>2:00 PM</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-door-open"></i><h4>Check-out</h4><p>12:00 NN</p></div>
+                    <div class="fact-card"><i class="fa-solid fa-star"></i><h4>Rating</h4><p>4.6 / 5</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 6: CONTACT -->
+        <section id="contact-page" class="page-view">
+            <div class="container">
+                <div class="contact-hero">
+                    <h1 style="font-size: 2.2rem; font-weight: 800;">Get in Touch</h1>
+                    <p style="opacity: 0.9; margin-top: 0.5rem;">Have a question or ready to book? Reach out anytime.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div><h4>Location</h4><p>[Your Hostel Address Here]</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div><h4>Email</h4><p>[your.email@example.com]</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div><h4>Phone / Mobile</h4><p>[+63 9XX XXX XXXX]</p></div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div><h4>Front Desk Hours</h4><p>24 Hours, 7 Days a Week</p></div>
+                        </div>
+                    </div>
+
+                    <div class="detail-box">
+                        <h3>Send Us a Message</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="you@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="How can we help?"></textarea>
+                        </div>
+                        <button class="btn-primary" style="width: 100%; justify-content: center;">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem;"><i class="fa-solid fa-bed"></i></div>
+                    <span class="brand-font">Elyu Gateway</span>
+                </div>
+                <p class="footer-desc">Affordable and comfortable transient rooms and hostel beds for every traveler.</p>
+                <div class="footer-socials">
+                    <a class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a onclick="switchPage('home-page')">Home</a></li>
+                    <li><a onclick="switchPage('rooms-page')">Directory</a></li>
+                    <li><a onclick="switchPage('gallery-page')">Gallery</a></li>
+                    <li><a onclick="switchPage('about-page')">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Rooms</h4>
+                <ul class="footer-links">
+                    <li><a onclick="switchPage('rooms-page')">Dorm Beds</a></li>
+                    <li><a onclick="switchPage('rooms-page')">Private Rooms</a></li>
+                    <li><a onclick="switchPage('rooms-page')">Family Rooms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a><i class="fa-solid fa-envelope"></i> [your.email@example.com]</a></li>
+                    <li><a><i class="fa-solid fa-phone"></i> [+63 9XX XXX XXXX]</a></li>
+                    <li><a><i class="fa-solid fa-location-dot"></i> [Your Hostel Address]</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 Elyu Gateway. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(pageId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            document.getElementById('nav-links').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('nav-links').classList.toggle('show');
+        }
+
+        function filterRooms(type, element) {
+            if (element) {
+                const pills = element.parentElement.querySelectorAll('.filter-pill');
+                pills.forEach(p => p.classList.remove('active'));
+                element.classList.add('active');
+            }
+            document.querySelectorAll('.room-card').forEach(card => {
+                const cardType = card.getAttribute('data-type');
+                card.style.display = (type === 'all' || cardType === type) ? 'flex' : 'none';
+            });
+        }
+
+        // Hero Slideshow
+        let currentHeroSlide = 0;
+        const heroSlideCount = 2;
+        let heroIntervalId = null;
+
+        function goToHeroSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            if (!slides.length) return;
+            slides[currentHeroSlide].classList.remove('active');
+            if (dots[currentHeroSlide]) dots[currentHeroSlide].classList.remove('active');
+            currentHeroSlide = index;
+            slides[currentHeroSlide].classList.add('active');
+            if (dots[currentHeroSlide]) dots[currentHeroSlide].classList.add('active');
+            resetHeroAutoplay();
+        }
+
+        function nextHeroSlide() {
+            goToHeroSlide((currentHeroSlide + 1) % heroSlideCount);
+        }
+
+        function resetHeroAutoplay() {
+            if (heroIntervalId) clearInterval(heroIntervalId);
+            heroIntervalId = setInterval(nextHeroSlide, 5000);
+        }
+
+        resetHeroAutoplay();
+    </script>
+</body>
+</html>
 
